@@ -1,7 +1,8 @@
 # ADR-001: AI Fluency Intake Form — Architecture Decision Record
 
 **Date:** 2026-06-05  
-**Status:** Proposed  
+**Status:** Accepted  
+**Closed:** 2026-06-05  
 **Project:** ai-fluency-intake  
 
 ---
@@ -47,7 +48,7 @@ React (Vite) SPA deployed on Vercel Hobby tier, with a Vercel serverless functio
 - Airtable Free tier caps at **1,000 records/base** and **1,000 API calls/month** — acceptable for intake volumes; revisit if usage grows
 - Vercel Hobby caps at **100K function invocations/month** — negligible for this use case
 - Vercel Hobby is restricted to **personal, non-commercial use** — this is a personal/educational project; acceptable for now. If this becomes a paid service, upgrade to Pro ($20/month)
-- Airtable official MCP server (launched Feb 2026) covers search, create, and update — sufficient for lesson planning use. Does not support delete or schema management; community server available if needed later
+- Airtable official MCP server (launched Feb 2026) exposes search, create, update, delete, and comments — does NOT include a list/browse-all-records tool. "Show me all submissions" queries are not supported via MCP. Use Airtable directly for browsing, or build a /api/records endpoint if needed. See LL-I05.
 - No spam protection on form — acceptable at current scale; add reCAPTCHA if abuse occurs
 - Single dependency chain: GoDaddy → Vercel → Airtable. If any tier changes pricing, migration is required
 
@@ -66,4 +67,4 @@ React (Vite) SPA deployed on Vercel Hobby tier, with a Vercel serverless functio
 
 ## Open Questions at Decision Time
 
-- None — all assumptions verified before build. See assumptions log in `build-plan.md`.
+- MCP tool coverage was verified post-build. Airtable MCP does not expose list/browse-all-records. See lessons-learned.md #3 and #4.

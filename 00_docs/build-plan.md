@@ -17,7 +17,7 @@
 | 3 | `vercel dev` runs serverless functions locally | ✅ Confirmed | Standard behavior |
 | 4 | Airtable API (PAT) available on Free tier | ✅ Confirmed | PAT replaced API keys Feb 2024 |
 | 5 | Airtable Free tier record limit | ✅ Confirmed | 1,000 records/base, 1,000 API calls/month |
-| 6 | Airtable MCP available on Free tier | ✅ Confirmed | Official server at `mcp.airtable.com/mcp`, launched Feb 2026. Free tier has 1,000 API calls/month — MCP interactions count against this. Monitor if heavy usage. |
+| 6 | Airtable MCP available on Free tier | ⚠️ Partial | Official server at `mcp.airtable.com/mcp`, launched Feb 2026. Tools available: search, create, update, delete, comments. No list/browse-all-records tool. "Show me latest submissions" workflow is NOT supported. Use Airtable directly for browsing. See LL-I05. |
 | 7 | PAT scopes on Free tier | ✅ Confirmed | `data.records:write` (serverless fn) and `data.records:read` (MCP) both available on Free |
 | 8 | GoDaddy CNAME → Vercel | ✅ Confirmed | Same pattern as existing Indyri subdomains |
 | ⚠️ | Vercel Hobby = personal use only | **Flag** | If intake form becomes part of a paid service, upgrade to Pro ($20/month) |
@@ -80,7 +80,16 @@ Use Case 2
 
 ---
 
-## Phase 1 — Local Build
+## Pre-Phase 1 — GitHub Hygiene
+
+- [x] `.gitignore` created (node_modules, dist, .env*, .vercel, .DS_Store)
+- [x] `README.md` created with purpose, stack, local dev steps, deploy steps, env vars list
+- [x] `.env.example` created with all required keys, no real values
+- [x] `.env.local` confirmed in `.gitignore` before first commit
+
+---
+
+## Phase 1 — Local Build ✅
 
 - [ ] Scaffold project: `npm create vite@latest ai-fluency-intake -- --template react`
 - [ ] Build form UI in `App.jsx`:
@@ -104,7 +113,7 @@ Use Case 2
 
 ---
 
-## Phase 2 — Airtable Setup
+## Phase 2 — Airtable Setup ✅
 
 - [ ] Create free Airtable account (if needed) at airtable.com
 - [ ] Create base: **AI Fluency Intake**
@@ -119,7 +128,7 @@ Use Case 2
 
 ---
 
-## Phase 3 — Deploy to Vercel
+## Phase 3 — Deploy to Vercel ✅
 
 - [ ] Create repo `indyrise/ai-fluency-intake` on GitHub
 - [ ] Push local project to repo
@@ -136,12 +145,12 @@ Use Case 2
 
 ---
 
-## Phase 4 — Airtable MCP Setup
+## Phase 4 — Airtable MCP Setup ✅ (partial)
 
 - [ ] Connect Airtable MCP in Claude settings:
   - URL: `https://mcp.airtable.com/mcp`
   - Auth: OAuth (use your Airtable account)
-- [ ] Test query: *"Show me the latest submissions in my AI Fluency Intake base"*
+- [ ] Test query: *"Find submissions mentioning [keyword]"* — search works, list-all does not. Browse all records in Airtable directly.
 - [ ] Test write (optional): confirm MCP can create a record
 
 ---
